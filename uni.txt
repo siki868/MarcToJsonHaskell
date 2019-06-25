@@ -1,0 +1,12 @@
+001 ##  [7]ba  [a]c  [b]a  [c]m  [d]0  [e]41736
+010 ##  [a]0-393-00051-6
+100 ##  [c]1981  [h]scr
+105 ##  [a]y
+200 1#  [a]A Coast of Trees  [e]Poems  [f]A. R. Ammons
+205 ##  [a][1. ed.]
+210 ##  [a]New York  [a][etc.]  [c]W. W. Norton&Company  [d]1981
+215 ##  [a]52 str.  [d]22 cm
+320 ##  [a]Popis autorovih dela na prelim. str
+675 ##  [a]821.111(73)-1=111(73)  [b]821.111(73)-1
+700 #1  [4]070  [a]AMMONS  [b]A. R.
+900 #3  [a]AMMONS  [b]A. R.
