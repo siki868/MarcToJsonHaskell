@@ -1,7 +1,7 @@
 import Text.Parsec
 import System.Environment
 
-data Marc21 = Marc21 Version Leader [Field]
+data Marc = Marc Version Leader [Field]
 data Leader = Leader Header
 data Field = ControlField Code Value | DataField Code Idx1 Idx2 [SubField]
 data SubField = SubField Code Value
@@ -14,8 +14,8 @@ type Idx1 = Char
 type Idx2 = Char
 
 -- ZA JSON
-instance Show Marc21 where
-    show (Marc21 mark lead fields) = "{\n" ++ "\"version\":" ++ show mark ++ ",\n" ++ show lead ++ show fields ++ "\n}"
+instance Show Marc where
+    show (Marc mark lead fields) = "{\n" ++ "\"version\":" ++ show mark ++ ",\n" ++ show lead ++ show fields ++ "\n}"
 
 instance Show Leader where
     show (Leader header) = "\"leader\":\"" ++ header ++ "\",\n\"fields\":\n"
@@ -28,24 +28,8 @@ instance Show Field where
 instance Show SubField where
     show (SubField code value) = "\n{\n\"" ++ code ++ "\":\"" ++ value ++ "\"\n}"
 
--- ZA TXT
--- instance Show Marc21 where
---     show (Marc21 mark lead fields) = "Verzija: " ++ show mark ++ "\n" ++ show lead ++ show fields
 
--- instance Show Leader where
---     show (Leader header) = "Zaglavlje: " ++ header ++ "\nPolja: :"
-
--- instance Show Field where
---     show (ControlField code value) = "\n" ++ code ++ ":" ++ value
---     show (DataField code idx1 idx2 (x:xs)) = "\n" ++ code ++ ":\n" ++ "Potpolja: :" ++ show (x:xs) ++ ",\n idx1:" ++ [idx1] ++",\nidx2\":" ++ [idx2] 
-
--- instance Show SubField where
---     show (SubField code value) = "\n" ++ code ++ ":" ++ value
-
-
-
-
-document :: Parsec String Int Marc21
+document :: Parsec String Int Marc
 document = do version <- get_version
               if version == "LEADER"
                     then
@@ -53,14 +37,14 @@ document = do version <- get_version
                             spaces
                             fields <- many get_field_leader
                             eof
-                            return (Marc21 version ld fields)
+                            return (Marc version ld fields)
                     else
                         do  spaces
                             ld <- get_leader
                             spaces
                             fields <- many get_field
                             eof
-                            return (Marc21 version ld fields)
+                            return (Marc version ld fields)
 
 
 get_field :: Parsec String Int Field
